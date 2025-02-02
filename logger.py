@@ -104,16 +104,15 @@ class Logger(Generic[T]):
         if self.exported: return
         self.warning(f"Log {c.q(self.name)} not saved to disk. Call .save() method", to_file=False)
 
+# @dataclass
+# class LD(LoggerData):
+#     abc: int
+#     _: KW_ONLY
+#     x: int | None = None
+#     y: str | None = None
 
-@dataclass
-class LD(LoggerData):
-    abc: int
-    _: KW_ONLY
-    x: int | None = None
-    y: str | None = None
+# l = Logger(__file__, ".", LD, c.italic("downloading"))
 
-l = Logger(__file__, ".", LD, c.italic("downloading"))
+# l.error("BAD", LD(123, y="HELLO", error=Exception("BAD THING")))
 
-l.error("BAD", LD(123, y="HELLO", error=Exception("BAD THING")))
-
-l.save()
+# l.save()
