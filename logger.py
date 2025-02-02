@@ -9,6 +9,7 @@ import inspect
 import os
 
 # Columns
+_C_TIME_STAMP = "time_stamp"
 _C_PREFIX = "prefix"
 _C_MESSAGE = "message"
 _C_ERROR_TYPE = "error_type"
@@ -25,7 +26,7 @@ class LoggerData:
 
     def __str__(self) -> str:
         fields = []
-        keys = self.fields_get()[2:]
+        keys = self.fields_get()[3:]
         for k in keys:
             v = self.__dict__[k]
             if v is None: continue
@@ -37,7 +38,7 @@ class LoggerData:
     @classmethod
     def fields_get(self) -> str:
         args = inspect.getfullargspec(self.__init__)
-        return [_C_PREFIX, _C_MESSAGE] + args.args[1:] + [_C_ERROR_TYPE] + args.kwonlyargs
+        return [_C_TIME_STAMP, _C_PREFIX, _C_MESSAGE] + args.args[1:] + [_C_ERROR_TYPE] + args.kwonlyargs
 
 T = TypeVar("T")
 
@@ -71,6 +72,7 @@ class Logger(Generic[T]):
         if to_file:
             dic = data.__dict__ if data is not None else {}
             dic.update({
+                _C_TIME_STAMP: datetime.now(),
                 _C_PREFIX: prefix,
                 _C_MESSAGE: message
             })
