@@ -1,3 +1,5 @@
+# https://github.com/kk44yy44kk/python_logger
+
 from dataclasses import dataclass, KW_ONLY, field
 from typing import Any, Type, Generic, TypeVar, Literal
 import ncc as c
@@ -6,6 +8,7 @@ import pandas as pd
 import inspect
 import os
 
+# Columns
 _C_PREFIX = "prefix"
 _C_MESSAGE = "message"
 _C_ERROR_TYPE = "error_type"
@@ -93,6 +96,7 @@ class Logger(Generic[T]):
         self._log("DEBUG", message, data, [c.magenta], to_stdout, to_file)
 
     def save(self, path: str | None = None) -> None:
+        # TODO: assert if columns have changed
         self.exported = True
         if path is None:
             path = f"{self.dir}/{self.name}{self._EXT}"
