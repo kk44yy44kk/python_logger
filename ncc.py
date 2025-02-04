@@ -445,7 +445,7 @@ def hex2rgb(code: str) -> RGB:
     assert len(code) == 6, "TODO"
     return (int(code[0:2], 16), int(code[2:4], 16), int(code[4:6], 16))
 
-def q(text: str, qm = "\"", colors: list[ColorFun] = [], colors_text: list[ColorFun] = []) -> str:
+def q(text: Any, qm = "\"", colors: list[ColorFun] = [], colors_text: list[ColorFun] = []) -> str:
     hl = compose(colors)
     hl_text = compose(colors_text)
-    return hl(qm + hl_text(text) + hl(qm))
+    return hl(qm + hl_text(str(text)) + hl(qm))
