@@ -284,6 +284,7 @@ def bar(
     body = frame_bar.replace(_PB_REPLACE, body)
     return f"{body}{tail_label}"
 
+
 T = TypeVar("T")
 class ProgressBar:
     def __init__(self, progress_bar: Callable[[int, int], None]):
@@ -301,8 +302,7 @@ class ProgressBar:
         print(self.progress_bar(i_max, i_max) + "\n\033[K\033[F")
 
     def print(self, *args, **kwargs) -> None:
-        text = "\033[K\033[F\033[K"
-        text += kwargs.get("sep", " ").join(map(str, args)) + "\n" + self.pb + "\033[F\n"
+        text = "\033[K" + kwargs.get("sep", " ").join(map(str, args)) + "\n" + self.pb + "\033[F"
         print(text, **kwargs)
 
 _d, _n, _l = 90, 180, 255
