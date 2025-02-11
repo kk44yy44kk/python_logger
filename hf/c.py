@@ -293,12 +293,12 @@ class ProgressBar:
     def __call__(self, iter: Iterable[T]):
         self.iterating = True
         i_max = max(1, len(iter))
-        print("\n" + self.progress_bar(0, i_max) + "\033[F")
+        print(self.progress_bar(0, i_max) + "\033[F")
         for i, element in enumerate(iter):
             self.pb = self.progress_bar(i, i_max)
             print(self.pb + "\033[F")
             yield element
-        print("\033[K\033[F" + self.progress_bar(i_max, i_max) + "\n\033[K\033[F")
+        print(self.progress_bar(i_max, i_max) + "\n\033[K\033[F")
 
     def print(self, *args, **kwargs) -> None:
         text = "\033[K\033[F\033[K"
